@@ -365,4 +365,4 @@ class Korail {
 	}
 }
 
-module.exports = Korail;
+export default Korail;
