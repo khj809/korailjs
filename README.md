@@ -9,4 +9,4 @@ This project is heavily influenced by [korail2](https://github.com/carpedm20/kor
 
 ### Author
 
-- Haejoon Kim / @khj809(https://github.com/khj809)
+- Haejoon Kim / [@khj809](https://github.com/khj809)
