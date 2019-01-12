@@ -180,7 +180,11 @@ class Korail {
 				resolve(trains);
 			} 
 			catch(e) {
-				reject(e);
+				if (e instanceof NoResultsError){
+					resolve([]);
+				} else {
+					reject(e);
+				}
 			}
 		});
 	}
@@ -277,7 +281,11 @@ class Korail {
 				resolve(rsvList[0]);
 			} 
 			catch(e){
-				reject(e);
+				if (e instanceof SoldOutError){
+					resolve(null);
+				} else {
+					reject(e);
+				}
 			}
 		});
 	}
@@ -306,7 +314,11 @@ class Korail {
 				resolve(tickets);
 			} 
 			catch(e){
-				reject(e);
+				if (e instanceof NoResultsError){
+					resolve([]);
+				} else {
+					reject(e);
+				}
 			}
 		});
 	}
@@ -334,8 +346,12 @@ class Korail {
 
 				resolve(reserves);
 			}
-			catch(e) { 
-				reject(e);
+			catch(e) {
+				if (e instanceof NoResultsError){
+					resolve([]);
+				} else {
+					reject(e);
+				}
 			}
 		});
 	}
