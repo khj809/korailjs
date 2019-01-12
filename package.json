@@ -13,7 +13,12 @@
     "@3846masa/axios-cookiejar-support": "^0.4.2",
     "@babel/polyfill": "^7.2.5",
     "axios": "^0.18.0",
-    "dayjs": "^1.7.8"
+    "core-js": "^2.6.2",
+    "dayjs": "^1.7.8",
+    "net": "^1.0.2",
+    "querystring": "^0.2.0",
+    "url": "^0.11.0",
+    "util": "^0.11.1"
   },
   "browserslist": "> 0.25%, not dead",
   "devDependencies": {
