@@ -1,6 +1,6 @@
 {
   "name": "korailjs",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Korail SDK for Javascript",
   "main": "dist/index.js",
   "scripts": {
@@ -11,9 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@3846masa/axios-cookiejar-support": "^0.4.2",
-    "@babel/polyfill": "^7.2.5",
     "axios": "^0.18.0",
-    "core-js": "^2.6.2",
     "dayjs": "^1.7.8",
     "net": "^1.0.2",
     "querystring": "^0.2.0",
@@ -25,6 +23,8 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
-    "@babel/preset-env": "^7.2.3"
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/runtime": "^7.2.0"
   }
 }
