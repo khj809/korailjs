@@ -1,8 +1,14 @@
-function KorailError(msg, code){
-    Error.captureStackTrace(this, this.constructor);
-    this.name = this.constructor.name;
-    this.msg = msg;
-    this.code = code;
+class KorailError extends Error {
+    constructor(msg, code, ...params){
+        super(...params);
+
+        if (Error.captureStackTrace){
+            Error.captureStackTrace(this, this.constructor);
+        }
+
+        this.msg = msg;
+        this.code = code;
+    }
 }
 
 class NeedToLoginError extends KorailError{
@@ -29,7 +35,10 @@ class SoldOutError extends KorailError{
         super("Sold Out", code);
     }
 }
-SoldOutError.codes = ['ERR211161'];
+SoldOutError.codes = [
+    'ERR211161',
+    'IRT010110',
+];
 
 export {
     KorailError,

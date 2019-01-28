@@ -1,9 +1,9 @@
 import Train from './train';
 
 class Ticket extends Train{
-    constructor(data){
+    init(data){
         const rawData = data.ticket_list[0].train_info[0];
-        super(rawData);
+        super.init(rawData);
 
         this.seatNoEnd = rawData.h_seat_no_end;
         this.seatNoCount = rawData.h_seat_cnt;
@@ -36,7 +36,7 @@ class Ticket extends Train{
         return repr_str;
     }
 
-    getTicketNo(){
+    get ticketNo(){
         return [this.saleInfo1, this.saleInfo2, this.saleInfo3, this.saleInfo4].join('-');
     }
 }

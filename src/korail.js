@@ -171,7 +171,11 @@ class Korail {
 				this._resultCheck(data);
 
 				const trainInfos = data.trn_infos.trn_info;
-				let trains = trainInfos.map(ti => new Train(ti));
+				let trains = trainInfos.map(ti => {
+					const train = new Train();
+					train.init(ti);
+					return train;
+				});
 	
 				if (!includeNoSeats){
 					trains = trains.filter(t => t.hasSeat());
@@ -193,26 +197,16 @@ class Korail {
 		train, 
 		{
 			passengers=null, 
-			reserveOption=ReserveOptions.GENERAL_FIRST
+			reserveOption=ReserveOptions.GENERAL_FIRST,
+			timeout=0,
 		}={}
 	) => {
 		let seatType = null;
-		if (!train.hasSeat()) throw new SoldOutError();
-		else if (reserveOption === ReserveOptions.GENERAL_ONLY){
-			if (train.hasGeneralSeat()) seatType = '1';
-			else throw new SoldOutError();
+		if (reserveOption === ReserveOptions.GENERAL_FIRST || reserveOption === ReserveOptions.GENERAL_ONLY){
+			seatType = '1';
 		}
-		else if (reserveOption === ReserveOptions.SPECIAL_ONLY){
-			if (train.hasSpecialSeat()) seatType = '2';
-			else throw new SoldOutError();
-		}
-		else if (reserveOption === ReserveOptions.GENERAL_FIRST){
-			if (train.hasGeneralSeat()) seatType = '1';
-			else seatType = '2';
-		}
-		else if (reserveOption === ReserveOptions.SPECIAL_FIRST){
-			if (train.hasSpecialSeat()) seatType = '2';
-			else seatType = '1';
+		else if (reserveOption === ReserveOptions.SPECIAL_FIRST || reserveOption === ReserveOptions.SPECIAL_ONLY){
+			seatType = '2';
 		}
 
 		if (!passengers || passengers.length === 0){
@@ -271,7 +265,7 @@ class Korail {
 
 		return new Promise(async (resolve, reject) => {
 			try {
-				const resp = await axios.get(KORAIL_TICKETRESERVATION, {params});
+				const resp = await axios.get(KORAIL_TICKETRESERVATION, {params, timeout});
 				const data = resp.data;
 				this._resultCheck(data);
 
@@ -281,11 +275,7 @@ class Korail {
 				resolve(rsvList[0]);
 			} 
 			catch(e){
-				if (e instanceof SoldOutError){
-					resolve(null);
-				} else {
-					reject(e);
-				}
+				reject(e);
 			}
 		});
 	}
@@ -309,7 +299,11 @@ class Korail {
 				this._resultCheck(data);
 
 				const ticket_infos = data.reservation_list;
-				const tickets = ticket_infos.map(info => new Ticket(info));
+				const tickets = ticket_infos.map(info => {
+					const ticket = new Ticket();
+					ticket.init(info);
+					return ticket;
+				});
 
 				resolve(tickets);
 			} 
@@ -340,7 +334,9 @@ class Korail {
 				const reserves = [];
 				rsvInfos.forEach(info => {
 					info.train_infos.train_info.forEach(tinfo => {
-						reserves.push(new Reservation(tinfo));
+						const rsv = new Reservation();
+						rsv.init(tinfo);
+						reserves.push(rsv);
 					});
 				});
 
@@ -381,4 +377,4 @@ class Korail {
 	}
 }
 
-export default Korail;
+export default new Korail();

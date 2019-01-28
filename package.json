@@ -1,11 +1,11 @@
 {
   "name": "korailjs",
-  "version": "0.1.7",
+  "version": "0.1.22",
   "description": "Korail SDK for Javascript",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "author": "Haejoon Kim",
   "license": "ISC",

@@ -1,5 +1,7 @@
+import {getParsedDate} from '../helpers';
+
 class Schedule{
-	constructor(data){
+	init(data){
 		this.trainType = data.h_trn_clsf_cd;
 		this.trainTypeName = data.h_trn_clsf_nm;
 		this.trainGroup = data.h_trn_gp_cd;
@@ -19,6 +21,32 @@ class Schedule{
 		this.runDate = data.h_run_dt;
 	}
 
+	get departure(){
+		return new Date(...getParsedDate(`${this.depDate.substr(0, 4)}-${this.depDate.substr(4, 2)}-${this.depDate.substr(6, 2)} `
+			+ `${this.depTime.substr(0, 2)}:${this.depTime.substr(2, 2)}:00`));
+	}
+
+	get arrival(){
+		return new Date(...getParsedDate(`${this.arrDate.substr(0, 4)}-${this.arrDate.substr(4, 2)}-${this.arrDate.substr(6, 2)} `
+			+ `${this.arrTime.substr(0, 2)}:${this.arrTime.substr(2, 2)}:00`));
+	}
+
+	isEqual(obj){
+		if (obj instanceof Schedule){
+			return (
+				this.trainType === obj.trainType &&
+				this.depDate === obj.depDate &&
+				this.depTime === obj.depTime &&
+				this.depName === obj.depName &&
+				this.arrDate === obj.arrDate &&
+				this.arrTime === obj.arrTime &&
+				this.arrName === obj.arrName
+			);
+		} else {
+			return false;
+		}
+	}
+
 	toString(){
 		const depTime = `${this.depTime.substr(0,2)}:${this.depTime.substr(2,2)}`;
 		const arrTime = `${this.arrTime.substr(0,2)}:${this.arrTime.substr(2,2)}`;
@@ -30,8 +58,8 @@ class Schedule{
 }
 
 class Train extends Schedule{
-	constructor(data){
-		super(data);
+	init(data){
+		super.init(data);
 		this.reservePossible = data.h_rsv_psb_flg;
 		this.reservePossibleName = data.h_rsv_psb_nm;
 		this.specialSeat = data.h_spe_rsv_cd;
@@ -42,10 +70,10 @@ class Train extends Schedule{
 		let repr_str = super.toString();
 		if (!!this.reservePossibleName){
 			const seats = [];
-			if (this.hasSpecialSeat()){
+			if (this.hasSpecialSeat){
 				seats.push('특실');
 			}
-			if (this.hasGeneralSeat()){
+			if (this.hasGeneralSeat){
 				seats.push('일반실');
 			}
 			repr_str += ` ${seats.join(',')} ${this.reservePossibleName.replace('\n', ' ')}`;
@@ -53,17 +81,18 @@ class Train extends Schedule{
 		return repr_str;
 	}
 
-	hasSpecialSeat = () => {
+	get hasSpecialSeat(){
 		return this.specialSeat === '11';
 	}
 
-	hasGeneralSeat = () => {
+	get hasGeneralSeat(){
 		return this.generalSeat === '11';
 	}
 
-	hasSeat = () => {
-		return this.hasGeneralSeat() || this.hasSpecialSeat();
+	get hasSeat(){
+		return this.hasGeneralSeat || this.hasSpecialSeat;
 	}
 }
+
 
 export default Train;

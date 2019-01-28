@@ -1,8 +1,9 @@
 import Train from './train';
+import {getParsedDate} from '../helpers';
 
 class Reservation extends Train{
-    constructor(data){
-        super(data);
+    init(data){
+        super.init(data);
         this.depDate = data.h_run_dt;
         this.arrDate = data.h_run_dt;
 
@@ -14,6 +15,17 @@ class Reservation extends Train{
         this.journeyNo = data.txtJrnySqno || '001';
         this.journeyCnt = data.txtJrnyCnt || '01';
         this.rsvChgNo = data.hidRsvChgNo || '00000';
+
+        this.isWaiting = this.buyLimitDate === '00000000';
+    }
+
+    get buyLimit(){
+        if (!this.isWaiting){
+            return new Date(...getParsedDate(`${this.buyLimitDate.substr(0, 4)}-${this.buyLimitDate.substr(4, 2)}-${this.buyLimitDate.substr(6, 2)} ` + 
+            `${this.buyLimitTime.substr(0, 2)}:${this.buyLimitTime.substr(2, 2)}:${this.buyLimitTime.substr(4, 2)}`));
+        } else {
+            return null;
+        }
     }
 
     toString(){

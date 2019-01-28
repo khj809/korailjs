@@ -1,9 +1,12 @@
 import Korail from './korail';
-import {AdultPassenger, ChildPassenger, SeniorPassenger} from './resources';
+import {Train, Ticket, Reservation, AdultPassenger, ChildPassenger, SeniorPassenger} from './resources';
 import {TrainTypes, ReserveOptions} from './enums';
+import {KorailError, NeedToLoginError, NoResultsError, SoldOutError} from './errors';
 
 export {
+	Train, Ticket, Reservation,
 	AdultPassenger, ChildPassenger, SeniorPassenger,
-	TrainTypes, ReserveOptions
+	TrainTypes, ReserveOptions,
+	KorailError, NeedToLoginError, NoResultsError, SoldOutError,
 }
 export default Korail;
