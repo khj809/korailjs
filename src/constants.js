@@ -1,9 +1,9 @@
 export const EMAIL_REGEX = /[^@]+@[^@]+\.[^@]+/;
 export const PHONE_NUMBER_REGEX = /(\d{3})-(\d{3,4})-(\d{4})/;
 
-const SCHEME = 'https';
-const KORAIL_HOST = 'smart.letskorail.com';
-const KORAIL_PORT = '443';
+const SCHEME = "https";
+const KORAIL_HOST = "smart.letskorail.com";
+const KORAIL_PORT = "443";
 
 const KORAIL_DOMAIN = `${SCHEME}://${KORAIL_HOST}:${KORAIL_PORT}`;
 const KORAIL_MOBILE = `${KORAIL_DOMAIN}/classes/com.korail.mobile`;
@@ -25,4 +25,5 @@ export const KORAIL_EVENT = `${KORAIL_MOBILE}.common.event`;
 export const KORAIL_PAYMENT = `${KORAIL_DOMAIN}/ebizmw/PrdPkgMainList.do`;
 export const KORAIL_PAYMENT_VOUCHER = `${KORAIL_DOMAIN}/ebizmw/PrdPkgBoucherView.do`;
 
-export const DEFAULT_USER_AGENT = 'Dalvik/2.1.0 (Linux; U; Android 5.1.1; Nexus 4 Build/LMY48T)';
+export const DEFAULT_USER_AGENT =
+  "Dalvik/2.1.0 (Linux; U; Android 5.1.1; Nexus 4 Build/LMY48T)";
