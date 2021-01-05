@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@3846masa/axios-cookiejar-support": "^0.4.2",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "core-js": "^3.2.1",
     "dayjs": "^1.7.8",
     "net": "^1.0.2",
